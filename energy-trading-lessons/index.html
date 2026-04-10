@@ -4633,6 +4633,14 @@ function renderSidebar() {
   const list = document.getElementById('moduleList');
   list.innerHTML = '';
 
+  // Modules divider
+  const modLabel = document.createElement('div');
+  modLabel.className = 'sidebar-section-label';
+  modLabel.style.borderTop = 'none';
+  modLabel.style.marginTop = '0';
+  modLabel.textContent = 'Modules';
+  list.appendChild(modLabel);
+
   MODULES.forEach((mod, i) => {
     const isActive = currentView === 'module' && i === currentModule;
     const item = document.createElement('div');
