@@ -4924,7 +4924,7 @@ function renderSidebar() {
     item.className = `module-item${isActive ? ' active' : ''}`;
     item.onclick = () => { currentView = 'module'; currentModule = i; render(); closeSidebar(); };
     item.innerHTML = `
-      <span class="module-num">${mod.id}</span>
+      <span class="source-icon">&#9670;</span>
       <div class="module-info">
         <div class="module-name">${mod.name}</div>
       </div>
