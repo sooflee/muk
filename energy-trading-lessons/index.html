@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="translations.js"></script>
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -4910,7 +4911,7 @@ const I18N = {
     bearish: '\u770b\u8dcc',   // 看跌
     neutral: '\u4e2d\u6027',   // 中性
     bullish: '\u770b\u6da8',   // 看涨
-    engOnlyNote: '> \ud83c\udf10 \u8bfe\u7a0b\u5185\u5bb9\u76ee\u524d\u4ec5\u63d0\u4f9b\u82f1\u6587\u7248\u672c\u3002\u884c\u4e1a\u672f\u8bed\u901a\u5e38\u4fdd\u7559\u82f1\u6587\u3002\n\n',  // > 🌐 课程内容目前仅提供英文版本。行业术语通常保留英文。
+    engOnlyNote: '',
     // Module names
     m_01: '\u57fa\u7840',              // 基础
     m_02: '\u539f\u6cb9',              // 原油
@@ -4963,6 +4964,11 @@ try { const l = localStorage.getItem('lang'); if (l === 'zh') currentLang = 'zh'
 function t(key) {
   return (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || key;
 }
+
+// Chinese translations for lesson/source content
+// Loaded from translations.js when available
+const MODULES_ZH = (typeof MODULES_ZH_DATA !== 'undefined') ? MODULES_ZH_DATA : {};
+const SOURCES_ZH = (typeof SOURCES_ZH_DATA !== 'undefined') ? SOURCES_ZH_DATA : {};
 
 function toggleLang() {
   currentLang = currentLang === 'en' ? 'zh' : 'en';
@@ -5116,11 +5122,13 @@ function render() {
   } else if (currentView === 'dashboard') {
     renderDashboard();
   } else {
-    let content = currentView === 'module'
-      ? MODULES[currentModule].lesson
-      : SOURCES[currentSource].content;
-    if (currentLang === 'zh' && I18N.zh.engOnlyNote) {
-      content = content.replace(/^(# [^\n]+\n)/, '$1\n' + I18N.zh.engOnlyNote);
+    let content;
+    if (currentView === 'module') {
+      const m = MODULES[currentModule];
+      content = (currentLang === 'zh' && MODULES_ZH[m.id]) ? MODULES_ZH[m.id] : m.lesson;
+    } else {
+      const s = SOURCES[currentSource];
+      content = (currentLang === 'zh' && SOURCES_ZH[s.id]) ? SOURCES_ZH[s.id] : s.content;
     }
     document.getElementById('lessonView').innerHTML = marked.parse(content);
 
