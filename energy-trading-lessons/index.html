@@ -763,7 +763,7 @@ const MODULES = [
     id: '01',
     name: 'Foundations',
     desc: 'Energy markets overview, key players, market structure',
-    lesson: `# Module 01 — Foundations of Energy Markets
+    lesson: `# Foundations of Energy Markets
 
 ---
 
@@ -956,7 +956,7 @@ Inventory (storage) is the buffer between supply and demand. It is the most impo
     id: '02',
     name: 'Crude Oil',
     desc: 'WTI, Brent, global flows, OPEC, benchmarks',
-    lesson: `# Module 02 — Crude Oil
+    lesson: `# Crude Oil
 
 ---
 
@@ -1278,7 +1278,7 @@ Also recommended: <a class="source-link" data-source="theprize">The Prize</a> by
     id: '03',
     name: 'Natural Gas',
     desc: 'Henry Hub, TTF, LNG, seasonality, storage',
-    lesson: `# Module 03 — Natural Gas
+    lesson: `# Natural Gas
 
 ---
 
@@ -1551,7 +1551,7 @@ Also recommended: <a class="source-link" data-source="otherlinks">RBN Energy blo
     id: '04',
     name: 'Refined Products',
     desc: 'Gasoline, diesel, jet fuel, refining economics',
-    lesson: `# Module 04 — Refined Products
+    lesson: `# Refined Products
 
 ---
 
@@ -1829,7 +1829,7 @@ Also recommended: <a class="source-link" data-source="otherlinks">EIA Refinery Y
     id: '05',
     name: 'Power Markets',
     desc: 'Electricity pricing, ISOs, renewables impact',
-    lesson: `# Module 05 — Power Markets (Electricity)
+    lesson: `# Power Markets (Electricity)
 
 ---
 
@@ -1992,7 +1992,7 @@ Also recommended: **PJM Learning Center** — free online resource explaining LM
     id: '06',
     name: 'Trading Mechanics',
     desc: 'Futures, options, OTC, clearing, margin',
-    lesson: `# Module 06 — Trading Mechanics
+    lesson: `# Trading Mechanics
 
 ---
 
@@ -2136,7 +2136,7 @@ Also recommended: **Options, Futures, and Other Derivatives** by John Hull. The 
     id: '07',
     name: 'Quantitative Skills',
     desc: 'Python, data sources, time series, backtesting',
-    lesson: `# Module 07 — Quantitative Skills
+    lesson: `# Quantitative Skills
 
 ---
 
@@ -2609,7 +2609,7 @@ Also recommended: **Python for Data Analysis** by Wes McKinney (the creator of p
     id: '08',
     name: 'Spreads & Structures',
     desc: 'Calendar, crack, spark, locational spreads',
-    lesson: `# Module 08 — Spreads & Structures
+    lesson: `# Spreads & Structures
 
 ---
 
@@ -2969,7 +2969,7 @@ Also recommended: **Energy Trading & Investing** by Davis Edwards. The most prac
     id: '09',
     name: 'Risk Management',
     desc: 'VaR, Greeks, correlation, position sizing',
-    lesson: `# Module 09 — Risk Management
+    lesson: `# Risk Management
 
 ---
 
@@ -3375,7 +3375,7 @@ Also recommended: **Against the Gods** by Peter Bernstein — a history of risk 
     id: '10',
     name: 'Portfolio & Strategy',
     desc: 'Fund structures, idea generation, interview prep',
-    lesson: `# Module 10 — Portfolio & Strategy (+ Breaking Into the Industry)
+    lesson: `# Portfolio & Strategy (+ Breaking Into the Industry)
 
 ---
 
@@ -5005,9 +5005,19 @@ function renderHome() {
       <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/89.png" alt="Muk" style="width:120px;height:120px;image-rendering:smooth;filter:grayscale(1);margin-bottom:16px;">
       <h1 style="font-family:var(--font-display);font-size:2.4rem;font-weight:700;color:var(--text-primary);margin-bottom:8px;letter-spacing:0.06em;text-transform:lowercase;">muk</h1>
       <p style="font-family:var(--font-mono);font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:40px;">energy trading</p>
-      <div style="background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:6px;padding:24px 32px;max-width:400px;">
+      <div style="background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:6px;padding:24px 32px;max-width:440px;">
         <p style="font-family:var(--font-mono);font-size:0.65rem;color:var(--accent-amber);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;">Under Construction</p>
-        <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.6;margin:0;">This page is being built. Use the sidebar to browse modules, sources, and dashboards.</p>
+        <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.6;margin-bottom:16px;">This page is being built. Get started with:</p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <a onclick="currentView='module';currentModule=0;render();closeSidebar();" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:5px;cursor:pointer;transition:border-color 0.15s;">
+            <span style="font-family:var(--font-mono);font-size:0.7rem;color:var(--accent-amber);">01</span>
+            <span style="font-size:0.85rem;color:var(--text-primary);">Foundations of Energy Markets</span>
+          </a>
+          <a onclick="currentView='source';currentSource=0;render();closeSidebar();" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:5px;cursor:pointer;transition:border-color 0.15s;">
+            <span style="font-family:var(--font-mono);font-size:0.7rem;color:var(--accent-amber);">&#9670;</span>
+            <span style="font-size:0.85rem;color:var(--text-primary);">Oil 101</span>
+          </a>
+        </div>
       </div>
     </div>
   `;
