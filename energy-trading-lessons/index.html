@@ -713,8 +713,8 @@ body {
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <div style="display:flex;flex-direction:column;align-items:center;gap:4px;position:relative;">
-        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/89.png" alt="Muk" style="width:80px;height:80px;image-rendering:smooth;filter:grayscale(1);">
-        <div class="sidebar-brand">muk</div>
+        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/89.png" alt="Muk" style="width:80px;height:80px;image-rendering:smooth;filter:grayscale(1);cursor:pointer;" onclick="currentView='home';render();closeSidebar();">
+        <div class="sidebar-brand" style="cursor:pointer;" onclick="currentView='home';render();closeSidebar();">muk</div>
         <button class="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode" style="position:absolute;top:0;right:0;">
           <span class="icon-dark">&#9789;</span>
           <span class="icon-light">&#9788;</span>
@@ -4900,7 +4900,7 @@ const DASHBOARD_CONFIG = {
 // ══════════════════════════════════════════════
 
 let currentModule = 0;
-let currentView = 'module'; // 'module' | 'source' | 'dashboard'
+let currentView = 'home'; // 'home' | 'module' | 'source' | 'dashboard'
 let currentSource = 0;
 let currentDashboard = 0;
 let dashboardState = {};
@@ -4976,7 +4976,9 @@ function renderSidebar() {
 function render() {
   renderSidebar();
 
-  if (currentView === 'dashboard') {
+  if (currentView === 'home') {
+    renderHome();
+  } else if (currentView === 'dashboard') {
     renderDashboard();
   } else {
     const content = currentView === 'module'
@@ -4995,6 +4997,20 @@ function render() {
   }
 
   document.getElementById('contentScroll').scrollTop = 0;
+}
+
+function renderHome() {
+  document.getElementById('lessonView').innerHTML = `
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;text-align:center;animation:fadeIn 0.3s ease;">
+      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/89.png" alt="Muk" style="width:120px;height:120px;image-rendering:smooth;filter:grayscale(1);margin-bottom:16px;">
+      <h1 style="font-family:var(--font-display);font-size:2.4rem;font-weight:700;color:var(--text-primary);margin-bottom:8px;letter-spacing:0.06em;text-transform:lowercase;">muk</h1>
+      <p style="font-family:var(--font-mono);font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:40px;">energy trading</p>
+      <div style="background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:6px;padding:24px 32px;max-width:400px;">
+        <p style="font-family:var(--font-mono);font-size:0.65rem;color:var(--accent-amber);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;">Under Construction</p>
+        <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.6;margin:0;">This page is being built. Use the sidebar to browse modules, sources, and dashboards.</p>
+      </div>
+    </div>
+  `;
 }
 
 function renderDashboard() {
