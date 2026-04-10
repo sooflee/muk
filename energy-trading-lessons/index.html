@@ -216,9 +216,13 @@ body {
 }
 
 /* ── MARKDOWN CONTENT ── */
+.content-area { --content-scale: 1; }
+.content-area.font-md { --content-scale: 1.15; }
+.content-area.font-lg { --content-scale: 1.32; }
+
 .content-area h1 {
   font-family: var(--font-display);
-  font-size: 1.8rem;
+  font-size: calc(1.8rem * var(--content-scale));
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 8px;
@@ -228,7 +232,7 @@ body {
 
 .content-area h2 {
   font-family: var(--font-display);
-  font-size: 1.35rem;
+  font-size: calc(1.35rem * var(--content-scale));
   font-weight: 600;
   color: var(--text-primary);
   margin: 40px 0 16px;
@@ -239,7 +243,7 @@ body {
 
 .content-area h3 {
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: calc(1rem * var(--content-scale));
   font-weight: 600;
   color: var(--accent-amber);
   margin: 28px 0 10px;
@@ -249,7 +253,7 @@ body {
 .content-area p {
   margin-bottom: 14px;
   color: var(--text-secondary);
-  font-size: 0.92rem;
+  font-size: calc(0.92rem * var(--content-scale));
 }
 
 .content-area strong { color: var(--text-primary); font-weight: 600; }
@@ -257,7 +261,7 @@ body {
 .content-area ul, .content-area ol {
   margin: 8px 0 16px 20px;
   color: var(--text-secondary);
-  font-size: 0.92rem;
+  font-size: calc(0.92rem * var(--content-scale));
 }
 
 .content-area li {
@@ -291,7 +295,7 @@ body {
   width: 100%;
   border-collapse: collapse;
   margin: 16px 0 20px;
-  font-size: 0.82rem;
+  font-size: calc(0.82rem * var(--content-scale));
 }
 
 .content-area thead th {
@@ -316,7 +320,7 @@ body {
 
 .content-area code {
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: calc(0.82rem * var(--content-scale));
   background: var(--bg-elevated);
   padding: 2px 6px;
   border-radius: 3px;
@@ -338,7 +342,7 @@ body {
   background: none;
   padding: 0;
   color: var(--text-secondary);
-  font-size: 0.8rem;
+  font-size: calc(0.8rem * var(--content-scale));
   line-height: 1.7;
 }
 
@@ -442,6 +446,51 @@ body {
 
 /* ── SCROLLBAR GUTTER ── */
 .content-scroll { scrollbar-gutter: stable; }
+
+/* ── MODULE PREV/NEXT NAV ── */
+.module-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 56px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-subtle);
+}
+.module-nav-btn {
+  flex: 1 1 0;
+  max-width: 280px;
+  padding: 12px 16px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  text-decoration: none;
+  display: block;
+}
+.module-nav-btn:hover { border-color: var(--accent-amber); background: var(--bg-elevated); }
+.module-nav-btn.next { text-align: right; margin-left: auto; }
+.module-nav-btn.prev { margin-right: auto; }
+.module-nav-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 4px;
+}
+.module-nav-title {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  line-height: 1.3;
+}
+@media (max-width: 640px) {
+  .module-nav { gap: 8px; margin-top: 40px; }
+  .module-nav-btn { padding: 10px 12px; }
+  .module-nav-title { font-size: 0.82rem; }
+}
 
 /* ── THEME TOGGLE ── */
 .theme-toggle {
@@ -794,6 +843,7 @@ body {
         </button>
         <button class="theme-toggle" onclick="hideSidebar()" title="Hide sidebar" style="position:absolute;top:34px;right:0;font-family:var(--font-mono);font-size:0.8rem;line-height:1;">&#8249;</button>
         <button class="theme-toggle" onclick="toggleLang()" title="Toggle language" style="position:absolute;top:0;left:0;font-family:var(--font-mono);font-size:0.6rem;" id="langToggle">EN</button>
+        <button class="theme-toggle" onclick="cycleFontSize()" title="Text size" style="position:absolute;top:34px;left:0;font-family:var(--font-mono);font-size:0.6rem;" id="fontToggle">A</button>
       </div>
     </div>
 
@@ -5277,8 +5327,34 @@ function render() {
         if (idx !== -1) { currentView = 'source'; currentSource = idx; render(); }
       });
     });
+
+    if (currentView === 'module') {
+      const nav = document.createElement('div');
+      nav.className = 'module-nav';
+      const prevIdx = currentModule - 1;
+      const nextIdx = currentModule + 1;
+
+      if (prevIdx >= 0) {
+        const prev = MODULES[prevIdx];
+        const btn = document.createElement('div');
+        btn.className = 'module-nav-btn prev';
+        btn.innerHTML = `<div class="module-nav-label">\u2190 ${t('prev')}</div><div class="module-nav-title">${t('m_' + prev.id) || prev.name}</div>`;
+        btn.onclick = () => { currentModule = prevIdx; render(); };
+        nav.appendChild(btn);
+      }
+      if (nextIdx < MODULES.length) {
+        const next = MODULES[nextIdx];
+        const btn = document.createElement('div');
+        btn.className = 'module-nav-btn next';
+        btn.innerHTML = `<div class="module-nav-label">${t('next')} \u2192</div><div class="module-nav-title">${t('m_' + next.id) || next.name}</div>`;
+        btn.onclick = () => { currentModule = nextIdx; render(); };
+        nav.appendChild(btn);
+      }
+      if (nav.children.length) lessonView.appendChild(nav);
+    }
   }
 
+  applyFontSize();
   document.getElementById('contentScroll').scrollTop = 0;
 }
 
@@ -5483,6 +5559,28 @@ function hideSidebar() {
   // Desktop-only: collapse sidebar
   document.querySelector('.app').classList.add('sidebar-hidden');
   try { localStorage.setItem('sidebarHidden', '1'); } catch(e) {}
+}
+
+const FONT_SIZES = ['sm', 'md', 'lg'];
+const FONT_LABELS = { sm: 'A', md: 'A\u207a', lg: 'A\u207a\u207a' };
+let currentFontSize = 'sm';
+try { const f = localStorage.getItem('fontSize'); if (FONT_SIZES.includes(f)) currentFontSize = f; } catch(e) {}
+
+function applyFontSize() {
+  const el = document.getElementById('lessonView');
+  if (!el) return;
+  el.classList.remove('font-md', 'font-lg');
+  if (currentFontSize === 'md') el.classList.add('font-md');
+  else if (currentFontSize === 'lg') el.classList.add('font-lg');
+  const btn = document.getElementById('fontToggle');
+  if (btn) btn.textContent = FONT_LABELS[currentFontSize];
+}
+
+function cycleFontSize() {
+  const i = FONT_SIZES.indexOf(currentFontSize);
+  currentFontSize = FONT_SIZES[(i + 1) % FONT_SIZES.length];
+  try { localStorage.setItem('fontSize', currentFontSize); } catch(e) {}
+  applyFontSize();
 }
 
 // ══════════════════════════════════════════════
