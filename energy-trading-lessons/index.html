@@ -67,7 +67,7 @@ body {
 }
 
 /* ── LAYOUT ── */
-.app { display: flex; height: 100vh; }
+.app { display: flex; height: 100vh; overflow: hidden; }
 
 /* ── SIDEBAR ── */
 .sidebar {
@@ -183,6 +183,7 @@ body {
 /* ── MAIN CONTENT ── */
 .main {
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -192,6 +193,7 @@ body {
 .content-scroll {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   scrollbar-width: thin;
   scrollbar-color: var(--border-medium) transparent;
 }
@@ -273,7 +275,7 @@ body {
   margin: 20px 0 24px;
   overflow-x: auto;
 }
-.graphic svg { display: block; margin: 0 auto; }
+.graphic svg { display: block; margin: 0 auto; max-width: 100%; height: auto; }
 .graphic-caption {
   font-family: var(--font-mono);
   font-size: 0.65rem;
@@ -763,7 +765,7 @@ const MODULES = [
     id: '01',
     name: 'Foundations',
     desc: 'Energy markets overview, key players, market structure',
-    lesson: `# Foundations of Energy Markets
+    lesson: `# Foundations
 
 ---
 
@@ -1829,7 +1831,7 @@ Also recommended: <a class="source-link" data-source="otherlinks">EIA Refinery Y
     id: '05',
     name: 'Power Markets',
     desc: 'Electricity pricing, ISOs, renewables impact',
-    lesson: `# Power Markets (Electricity)
+    lesson: `# Power Markets
 
 ---
 
@@ -2607,9 +2609,9 @@ Also recommended: **Python for Data Analysis** by Wes McKinney (the creator of p
   },
   {
     id: '08',
-    name: 'Spreads & Structures',
+    name: 'Spreads',
     desc: 'Calendar, crack, spark, locational spreads',
-    lesson: `# Spreads & Structures
+    lesson: `# Spreads
 
 ---
 
@@ -3373,9 +3375,9 @@ Also recommended: **Against the Gods** by Peter Bernstein — a history of risk 
   },
   {
     id: '10',
-    name: 'Portfolio & Strategy',
+    name: 'Portfolio',
     desc: 'Fund structures, idea generation, interview prep',
-    lesson: `# Portfolio & Strategy (+ Breaking Into the Industry)
+    lesson: `# Portfolio
 
 ---
 
@@ -5011,7 +5013,7 @@ function renderHome() {
         <div style="display:flex;flex-direction:column;gap:8px;">
           <div onclick="currentView='module';currentModule=0;render();closeSidebar();" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:5px;cursor:pointer;transition:border-color 0.15s;" onmouseover="this.style.borderColor='var(--accent-amber)'" onmouseout="this.style.borderColor='var(--border-subtle)'">
             <span style="font-family:var(--font-mono);font-size:0.7rem;color:var(--accent-amber);">&#9670;</span>
-            <span style="font-size:0.85rem;color:var(--text-primary);">Foundations of Energy Markets</span>
+            <span style="font-size:0.85rem;color:var(--text-primary);">Foundations</span>
           </div>
           <div onclick="currentView='source';currentSource=0;render();closeSidebar();" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:5px;cursor:pointer;transition:border-color 0.15s;" onmouseover="this.style.borderColor='var(--accent-amber)'" onmouseout="this.style.borderColor='var(--border-subtle)'">
             <span style="font-family:var(--font-mono);font-size:0.7rem;color:var(--accent-amber);">&#9670;</span>
