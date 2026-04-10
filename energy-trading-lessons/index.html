@@ -5243,8 +5243,10 @@ function render() {
       const s = SOURCES[currentSource];
       content = (currentLang === 'zh' && SOURCES_ZH[s.id]) ? SOURCES_ZH[s.id] : s.content;
     }
+    // Escape single tildes so marked doesn't treat "(~60%" as strikethrough
+    const safeContent = content.replace(/~/g, '&#126;');
     const lessonView = document.getElementById('lessonView');
-    lessonView.innerHTML = marked.parse(content);
+    lessonView.innerHTML = marked.parse(safeContent);
     annotateGlossary(lessonView);
 
     document.querySelectorAll('.content-area a.source-link').forEach(a => {
