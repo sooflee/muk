@@ -4644,90 +4644,6 @@ After WWI, seven companies dominated global oil: Exxon (Standard Oil of NJ), Mob
 **The New Map** (2020) covers the shale revolution\u2019s transformation of the US from importer to exporter, Russia\u2019s dependence on energy revenue, China\u2019s energy security strategy, and the geopolitics of the energy transition. Essential reading for understanding the current OPEC+ dynamic and US-China energy competition.`
   },
   {
-    id: 'otherlinks',
-    name: 'Other Links',
-    icon: '&#9670;',
-    content: `# Other Links
-
----
-
-## RBN Energy Blog
-*rbnenergy.com*
-
-The best free resource for North American natural gas, NGL, and crude oil fundamentals. Founded by Rusty Braziel, the blog publishes daily analytical posts that break down complex energy infrastructure and market dynamics into accessible, data-driven narratives.
-
-### Key Content Areas
-
-**Natural Gas Storage & Balances**: Weekly storage analysis ahead of and following the EIA Thursday report. Seasonal injection/withdrawal projections. Regional storage dynamics (South Central salt vs. non-salt, East, Midwest). End-of-season forecasts and what they imply for winter pricing.
-
-**Pipeline Infrastructure & Basis**: Permian gas takeaway capacity and Waha basis implications. Appalachian (Marcellus/Utica) pipeline constraints and Dominion South basis. New pipeline projects: timeline, capacity, and impact on regional differentials. Gulf Coast LNG feedgas pipeline flows.
-
-**NGL Markets & Frac Spreads**: Mont Belvieu NGL pricing (ethane, propane, butane, isobutane, natural gasoline). Frac spread economics: when does it pay to process wet gas? Ethane rejection vs. recovery thresholds. NGL export dynamics (propane to Asia, ethane to European crackers).
-
-**LNG Export Analysis**: US LNG terminal feedgas tracking (Sabine Pass, Cameron, Freeport, Corpus Christi, Calcasieu Pass). LNG cargo flows and destination analysis. JKM-Henry Hub arbitrage economics.
-
-**Crude Oil & Refining**: Permian production growth and takeaway capacity. Midland-Cushing-Gulf Coast basis dynamics. Refinery utilization and turnaround tracking. Seasonal product transitions (RVP, winter vs. summer gasoline).
-
-**How to use**: Subscribe to the free daily blog post. When a new pipeline is announced, RBN analyzes the capacity, timeline, and basis impact \u2014 this informs your basis spread trades. **RBN Backstage Pass** (paid) provides deeper data and the full archive.
-
----
-
-## EIA Refinery Yield Data
-*eia.gov \u2014 Petroleum & Other Liquids > Refining & Processing > Refinery Yield*
-
-Detailed data on US refinery product yields \u2014 how many gallons of each product come out of a barrel of crude, broken down by region (PADD). Updated monthly. Available via EIA API or Excel/CSV download with history back to 1993.
-
-### Typical PADD 3 (Gulf Coast) Yields
-
-| Product | Yield (% of input) | Notes |
-|---------|-------------------|-------|
-| Finished motor gasoline | ~46% | Includes blending components |
-| Distillate fuel oil (diesel) | ~27% | ULSD (<15 ppm sulfur) |
-| Jet fuel / kerosene | ~10% | Stable demand, less seasonal |
-| Residual fuel oil | ~3% | Declining due to IMO 2020 |
-| LPG / still gas | ~7% | Refinery fuel + NGL output |
-| Petroleum coke | ~5% | Byproduct of coking heavy crude |
-| Other | ~7% | Asphalt, lubricants, petrochemical feedstocks |
-
-**Processing gain**: Total output volume exceeds input by ~5\u20136% because cracking heavy molecules into lighter ones increases total volume.
-
-### Why This Matters for Trading
-
-**Crack spread calibration**: The 3:2:1 assumes 2 barrels gasoline + 1 barrel diesel per 3 barrels crude. But actual yields vary \u2014 a Gulf Coast complex refinery processing light sweet yields ~48% gasoline, while a simple refinery on heavy crude yields ~38%. The "right" crack ratio depends on the refinery you are modeling.
-
-**Seasonal yield shifts**: Summer \u2014 maximize gasoline output (FCC units run hard). Winter \u2014 shift toward distillate (heating oil demand). These shifts affect the RBOB-ULSD spread.
-
-**PADD-level analysis**: PADD 3 Gulf Coast sets the national crack spread benchmark. PADD 1 East Coast relies on imports \u2014 tighter supply = wider cracks. PADD 5 West Coast trades at premium cracks due to isolation and strict California specs (CARBOB).
-
----
-
-## EIA Weekly Petroleum Status Report (WPSR)
-*Published every Wednesday at 10:30 AM ET*
-
-The most market-moving energy report in the world. WTI can move $0.50\u20132.00 on a surprise. RBOB and ULSD react even more violently to product inventory surprises. **The price move = actual minus consensus.**
-
-### Key Data Points
-
-**Crude oil**: Commercial stocks (weekly change), Cushing stocks, imports, exports, production estimate.
-
-**Products**: Gasoline and distillate stocks (weekly change vs. 5yr avg), product supplied (demand proxy).
-
-**Refining**: Utilization %, crude inputs. Lower utilization = tighter products = bullish cracks.
-
-### How to Trade the Report
-
-1. **Pre-report**: Build your own estimate using pipeline flow data, refinery status, weather. Compare to Bloomberg consensus. Divergence = your signal.
-2. **Release (10:30 ET)**: The algo-driven move hits in 5\u201330 seconds \u2014 don\u2019t chase. The second move (5\u201330 min later) often reverses or extends as traders digest details.
-3. **Post-report**: Update your S/D model. Track the inventory surplus/deficit vs. 5-year average \u2014 the trajectory matters more than the level.
-
-### Common Pitfalls
-
-- A crude **build** can be bullish if gasoline and distillate drew heavily (crude was processed into products)
-- A 2M bbl gasoline draw in January is normal; the same draw in July when a build was expected is very bullish
-- A total US crude build with a **Cushing draw** can still be bullish for WTI prompt spreads
-- The **API report** (Tuesday 4:30 PM ET) is a preview but less reliable \u2014 when API and EIA diverge, the EIA number is definitive`
-  },
-  {
     id: 'handbooktrading',
     name: 'Handbook of Energy Trading',
     icon: '&#9670;',
@@ -4826,6 +4742,90 @@ This is a **reference**, not a cover-to-cover read. Use it when you need:
 
 Best paired with Python implementation \u2014 the formulas translate directly into code for the models in Module 07. Start with the one-factor mean-reverting model (simplest to implement), then extend to two-factor and jump-diffusion as your needs grow.`
 
+  },
+  {
+    id: 'otherlinks',
+    name: 'Other Links',
+    icon: '&#9670;',
+    content: `# Other Links
+
+---
+
+## RBN Energy Blog
+*rbnenergy.com*
+
+The best free resource for North American natural gas, NGL, and crude oil fundamentals. Founded by Rusty Braziel, the blog publishes daily analytical posts that break down complex energy infrastructure and market dynamics into accessible, data-driven narratives.
+
+### Key Content Areas
+
+**Natural Gas Storage & Balances**: Weekly storage analysis ahead of and following the EIA Thursday report. Seasonal injection/withdrawal projections. Regional storage dynamics (South Central salt vs. non-salt, East, Midwest). End-of-season forecasts and what they imply for winter pricing.
+
+**Pipeline Infrastructure & Basis**: Permian gas takeaway capacity and Waha basis implications. Appalachian (Marcellus/Utica) pipeline constraints and Dominion South basis. New pipeline projects: timeline, capacity, and impact on regional differentials. Gulf Coast LNG feedgas pipeline flows.
+
+**NGL Markets & Frac Spreads**: Mont Belvieu NGL pricing (ethane, propane, butane, isobutane, natural gasoline). Frac spread economics: when does it pay to process wet gas? Ethane rejection vs. recovery thresholds. NGL export dynamics (propane to Asia, ethane to European crackers).
+
+**LNG Export Analysis**: US LNG terminal feedgas tracking (Sabine Pass, Cameron, Freeport, Corpus Christi, Calcasieu Pass). LNG cargo flows and destination analysis. JKM-Henry Hub arbitrage economics.
+
+**Crude Oil & Refining**: Permian production growth and takeaway capacity. Midland-Cushing-Gulf Coast basis dynamics. Refinery utilization and turnaround tracking. Seasonal product transitions (RVP, winter vs. summer gasoline).
+
+**How to use**: Subscribe to the free daily blog post. When a new pipeline is announced, RBN analyzes the capacity, timeline, and basis impact \u2014 this informs your basis spread trades. **RBN Backstage Pass** (paid) provides deeper data and the full archive.
+
+---
+
+## EIA Refinery Yield Data
+*eia.gov \u2014 Petroleum & Other Liquids > Refining & Processing > Refinery Yield*
+
+Detailed data on US refinery product yields \u2014 how many gallons of each product come out of a barrel of crude, broken down by region (PADD). Updated monthly. Available via EIA API or Excel/CSV download with history back to 1993.
+
+### Typical PADD 3 (Gulf Coast) Yields
+
+| Product | Yield (% of input) | Notes |
+|---------|-------------------|-------|
+| Finished motor gasoline | ~46% | Includes blending components |
+| Distillate fuel oil (diesel) | ~27% | ULSD (<15 ppm sulfur) |
+| Jet fuel / kerosene | ~10% | Stable demand, less seasonal |
+| Residual fuel oil | ~3% | Declining due to IMO 2020 |
+| LPG / still gas | ~7% | Refinery fuel + NGL output |
+| Petroleum coke | ~5% | Byproduct of coking heavy crude |
+| Other | ~7% | Asphalt, lubricants, petrochemical feedstocks |
+
+**Processing gain**: Total output volume exceeds input by ~5\u20136% because cracking heavy molecules into lighter ones increases total volume.
+
+### Why This Matters for Trading
+
+**Crack spread calibration**: The 3:2:1 assumes 2 barrels gasoline + 1 barrel diesel per 3 barrels crude. But actual yields vary \u2014 a Gulf Coast complex refinery processing light sweet yields ~48% gasoline, while a simple refinery on heavy crude yields ~38%. The "right" crack ratio depends on the refinery you are modeling.
+
+**Seasonal yield shifts**: Summer \u2014 maximize gasoline output (FCC units run hard). Winter \u2014 shift toward distillate (heating oil demand). These shifts affect the RBOB-ULSD spread.
+
+**PADD-level analysis**: PADD 3 Gulf Coast sets the national crack spread benchmark. PADD 1 East Coast relies on imports \u2014 tighter supply = wider cracks. PADD 5 West Coast trades at premium cracks due to isolation and strict California specs (CARBOB).
+
+---
+
+## EIA Weekly Petroleum Status Report (WPSR)
+*Published every Wednesday at 10:30 AM ET*
+
+The most market-moving energy report in the world. WTI can move $0.50\u20132.00 on a surprise. RBOB and ULSD react even more violently to product inventory surprises. **The price move = actual minus consensus.**
+
+### Key Data Points
+
+**Crude oil**: Commercial stocks (weekly change), Cushing stocks, imports, exports, production estimate.
+
+**Products**: Gasoline and distillate stocks (weekly change vs. 5yr avg), product supplied (demand proxy).
+
+**Refining**: Utilization %, crude inputs. Lower utilization = tighter products = bullish cracks.
+
+### How to Trade the Report
+
+1. **Pre-report**: Build your own estimate using pipeline flow data, refinery status, weather. Compare to Bloomberg consensus. Divergence = your signal.
+2. **Release (10:30 ET)**: The algo-driven move hits in 5\u201330 seconds \u2014 don\u2019t chase. The second move (5\u201330 min later) often reverses or extends as traders digest details.
+3. **Post-report**: Update your S/D model. Track the inventory surplus/deficit vs. 5-year average \u2014 the trajectory matters more than the level.
+
+### Common Pitfalls
+
+- A crude **build** can be bullish if gasoline and distillate drew heavily (crude was processed into products)
+- A 2M bbl gasoline draw in January is normal; the same draw in July when a build was expected is very bullish
+- A total US crude build with a **Cushing draw** can still be bullish for WTI prompt spreads
+- The **API report** (Tuesday 4:30 PM ET) is a preview but less reliable \u2014 when API and EIA diverge, the EIA number is definitive`
   }
 ];
 
