@@ -721,6 +721,7 @@ body {
           <span class="icon-dark">&#9789;</span>
           <span class="icon-light">&#9788;</span>
         </button>
+        <button class="theme-toggle" onclick="toggleLang()" title="Toggle language" style="position:absolute;top:0;left:0;font-family:var(--font-mono);font-size:0.6rem;" id="langToggle">EN</button>
       </div>
     </div>
 
@@ -4830,6 +4831,147 @@ The most market-moving energy report in the world. WTI can move $0.50\u20132.00 
 ];
 
 // ══════════════════════════════════════════════
+// I18N
+// ══════════════════════════════════════════════
+
+const I18N = {
+  en: {
+    modules: 'Modules',
+    sources: 'Sources',
+    dashboards: 'Dashboards',
+    energyTrading: 'energy trading',
+    underConstruction: 'Under Construction',
+    getStartedWith: 'This page is being built. Get started with:',
+    morningTrading: 'Morning Trading',
+    morningDashTitle: 'Morning Trading Dashboard',
+    morningDashSubtitle: 'Enter prices below \u2014 spreads auto-calculate',
+    prices: 'Prices',
+    computedSpreads: 'Computed Spreads',
+    inventories: 'Inventories & Fundamentals',
+    keyEvents: 'Key Events',
+    morningChecklist: 'Morning Checklist',
+    lastUpdated: 'Last updated',
+    bearish: 'BEARISH',
+    neutral: 'NEUTRAL',
+    bullish: 'BULLISH',
+    engOnlyNote: '',
+    // Module names
+    m_01: 'Foundations', m_02: 'Crude Oil', m_03: 'Natural Gas',
+    m_04: 'Refined Products', m_05: 'Power Markets', m_06: 'Trading Mechanics',
+    m_07: 'Quantitative Skills', m_08: 'Spreads', m_09: 'Risk Management', m_10: 'Portfolio',
+    // Source names
+    s_oil101: 'Oil 101',
+    s_eia: 'EIA Today in Energy',
+    s_primer: 'A Primer on Energy Trading',
+    s_theprize: 'The Prize',
+    s_handbooktrading: 'Handbook of Energy Trading',
+    s_otherlinks: 'Other Links',
+    // Dashboard events
+    ev_eiapetro: 'EIA Weekly Petroleum Status',
+    ev_eiagas: 'EIA Natural Gas Storage',
+    ev_bhrig: 'Baker Hughes Rig Count',
+    ev_cot: 'CFTC COT Report',
+    ev_opec: 'OPEC Monthly Report (~12th)',
+    ev_iea: 'IEA Oil Market Report (~15th)',
+    ev_steo: 'EIA STEO (~5th\u201310th)',
+    day_wed: 'Wed', day_thu: 'Thu', day_fri: 'Fri', day_monthly: 'Monthly',
+    // Checklist
+    cl_1: 'Check overnight Brent / WTI / TTF settlement',
+    cl_2: 'Review Asian session & LNG flows',
+    cl_3: 'Check weather models (GFS / ECMWF shift)',
+    cl_4: 'Note prompt spread direction (WTI & HH)',
+    cl_5: 'Read EIA STEO / OPEC MOMR if released today',
+    cl_6: 'Review CFTC COT positioning (if Friday data)',
+    cl_7: 'Check refinery outage / turnaround updates',
+    cl_8: "Review yesterday's volume & open interest changes",
+    // Inventory labels
+    inv_cushing: 'Cushing',
+    inv_gas_storage: 'Gas Storage',
+    inv_gasoline_inv: 'Gasoline Stocks',
+    inv_distillate_inv: 'Distillate Stocks',
+    inv_refinery_util: 'Refinery Util',
+  },
+  zh: {
+    modules: '\u6a21\u5757',           // 模块
+    sources: '\u8d44\u6e90',           // 资源
+    dashboards: '\u4eea\u8868\u76d8',  // 仪表板
+    energyTrading: '\u80fd\u6e90\u4ea4\u6613',  // 能源交易
+    underConstruction: '\u5efa\u8bbe\u4e2d',    // 建设中
+    getStartedWith: '\u672c\u9875\u9762\u6b63\u5728\u5efa\u8bbe\u4e2d\u3002\u5f00\u59cb\u5b66\u4e60\uff1a',  // 本页面正在建设中。开始学习：
+    morningTrading: '\u6668\u95f4\u4ea4\u6613',  // 晨间交易
+    morningDashTitle: '\u6668\u95f4\u4ea4\u6613\u4eea\u8868\u76d8',  // 晨间交易仪表板
+    morningDashSubtitle: '\u8f93\u5165\u4ef7\u683c \u2014 \u81ea\u52a8\u8ba1\u7b97\u4ef7\u5dee',  // 输入价格 — 自动计算价差
+    prices: '\u4ef7\u683c',                      // 价格
+    computedSpreads: '\u8ba1\u7b97\u4ef7\u5dee',  // 计算价差
+    inventories: '\u5e93\u5b58\u4e0e\u57fa\u672c\u9762',  // 库存与基本面
+    keyEvents: '\u5173\u952e\u4e8b\u4ef6',        // 关键事件
+    morningChecklist: '\u6668\u95f4\u6e05\u5355',  // 晨间清单
+    lastUpdated: '\u6700\u540e\u66f4\u65b0',       // 最后更新
+    bearish: '\u770b\u8dcc',   // 看跌
+    neutral: '\u4e2d\u6027',   // 中性
+    bullish: '\u770b\u6da8',   // 看涨
+    engOnlyNote: '> \ud83c\udf10 \u8bfe\u7a0b\u5185\u5bb9\u76ee\u524d\u4ec5\u63d0\u4f9b\u82f1\u6587\u7248\u672c\u3002\u884c\u4e1a\u672f\u8bed\u901a\u5e38\u4fdd\u7559\u82f1\u6587\u3002\n\n',  // > 🌐 课程内容目前仅提供英文版本。行业术语通常保留英文。
+    // Module names
+    m_01: '\u57fa\u7840',              // 基础
+    m_02: '\u539f\u6cb9',              // 原油
+    m_03: '\u5929\u7136\u6c14',         // 天然气
+    m_04: '\u6210\u54c1\u6cb9',         // 成品油
+    m_05: '\u7535\u529b\u5e02\u573a',   // 电力市场
+    m_06: '\u4ea4\u6613\u673a\u5236',   // 交易机制
+    m_07: '\u91cf\u5316\u6280\u80fd',   // 量化技能
+    m_08: '\u4ef7\u5dee',               // 价差
+    m_09: '\u98ce\u9669\u7ba1\u7406',   // 风险管理
+    m_10: '\u6295\u8d44\u7ec4\u5408',   // 投资组合
+    // Source names
+    s_oil101: '\u77f3\u6cb9 101',                          // 石油 101
+    s_eia: 'EIA \u4eca\u65e5\u80fd\u6e90',                 // EIA 今日能源
+    s_primer: '\u80fd\u6e90\u4ea4\u6613\u5165\u95e8',       // 能源交易入门
+    s_theprize: '\u300a\u77f3\u6cb9\u30b7\u300b The Prize',  // 《石油!》The Prize
+    s_handbooktrading: '\u80fd\u6e90\u4ea4\u6613\u624b\u518c',  // 能源交易手册
+    s_otherlinks: '\u5176\u4ed6\u94fe\u63a5',              // 其他链接
+    // Dashboard events
+    ev_eiapetro: 'EIA \u6bcf\u5468\u77f3\u6cb9\u72b6\u51b5',     // EIA 每周石油状况
+    ev_eiagas: 'EIA \u5929\u7136\u6c14\u5e93\u5b58',              // EIA 天然气库存
+    ev_bhrig: '\u8d1d\u514b\u4f11\u65af\u94bb\u673a\u6570',        // 贝克休斯钻机数
+    ev_cot: 'CFTC \u6301\u4ed3\u62a5\u544a',                       // CFTC 持仓报告
+    ev_opec: 'OPEC \u6708\u62a5 (\u7ea612\u65e5)',                  // OPEC 月报 (约12日)
+    ev_iea: 'IEA \u77f3\u6cb9\u5e02\u573a\u62a5\u544a (\u7ea615\u65e5)',  // IEA 石油市场报告 (约15日)
+    ev_steo: 'EIA STEO (\u7ea65\u201310\u65e5)',                    // EIA STEO (约5-10日)
+    day_wed: '\u5468\u4e09', day_thu: '\u5468\u56db',  // 周三 周四
+    day_fri: '\u5468\u4e94', day_monthly: '\u6bcf\u6708',  // 周五 每月
+    // Checklist
+    cl_1: '\u68c0\u67e5\u9694\u591c Brent / WTI / TTF \u7ed3\u7b97',  // 检查隔夜 Brent / WTI / TTF 结算
+    cl_2: '\u67e5\u770b\u4e9a\u6d32\u65f6\u6bb5\u4e0e LNG \u6d41\u91cf',  // 查看亚洲时段与 LNG 流量
+    cl_3: '\u68c0\u67e5\u5929\u6c14\u6a21\u578b (GFS / ECMWF \u53d8\u5316)',  // 检查天气模型
+    cl_4: '\u5173\u6ce8\u8fd1\u671f\u4ef7\u5dee\u65b9\u5411 (WTI \u4e0e HH)',  // 关注近期价差方向
+    cl_5: '\u5982\u4eca\u65e5\u53d1\u5e03\uff0c\u9605\u8bfb EIA STEO / OPEC MOMR',  // 如今日发布，阅读
+    cl_6: '\u67e5\u770b CFTC \u6301\u4ed3 (\u82e5\u662f\u5468\u4e94\u6570\u636e)',  // 查看 CFTC 持仓
+    cl_7: '\u68c0\u67e5\u70bc\u5382\u505c\u4ea7 / \u68c0\u4fee\u66f4\u65b0',  // 检查炼厂停产
+    cl_8: '\u590d\u76d8\u6628\u65e5\u6210\u4ea4\u91cf\u4e0e\u6301\u4ed3\u53d8\u5316',  // 复盘昨日成交量
+    // Inventory labels
+    inv_cushing: '\u5e93\u4ec0\u5e93\u5b58',            // 库什库存
+    inv_gas_storage: '\u5929\u7136\u6c14\u5e93\u5b58',   // 天然气库存
+    inv_gasoline_inv: '\u6c7d\u6cb9\u5e93\u5b58',        // 汽油库存
+    inv_distillate_inv: '\u67f4\u6cb9\u5e93\u5b58',      // 柴油库存
+    inv_refinery_util: '\u70bc\u5382\u5f00\u5de5\u7387',  // 炼厂开工率
+  }
+};
+
+let currentLang = 'en';
+try { const l = localStorage.getItem('lang'); if (l === 'zh') currentLang = 'zh'; } catch(e) {}
+
+function t(key) {
+  return (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || key;
+}
+
+function toggleLang() {
+  currentLang = currentLang === 'en' ? 'zh' : 'en';
+  try { localStorage.setItem('lang', currentLang); } catch(e) {}
+  document.getElementById('langToggle').textContent = currentLang === 'en' ? 'EN' : '\u4e2d';
+  render();
+}
+
+// ══════════════════════════════════════════════
 // DASHBOARDS
 // ══════════════════════════════════════════════
 
@@ -4877,24 +5019,15 @@ const DASHBOARD_CONFIG = {
       thresholds: { bearishAbove: 94, bullishBelow: 88 } },
   ],
   events: [
-    { day: 'Wed',     time: '10:30 ET', desc: 'EIA Weekly Petroleum Status' },
-    { day: 'Thu',     time: '10:30 ET', desc: 'EIA Natural Gas Storage' },
-    { day: 'Fri',     time: '13:00 ET', desc: 'Baker Hughes Rig Count' },
-    { day: 'Fri',     time: '15:30 ET', desc: 'CFTC COT Report' },
-    { day: 'Monthly', time: '',         desc: 'OPEC Monthly Report (~12th)' },
-    { day: 'Monthly', time: '',         desc: 'IEA Oil Market Report (~15th)' },
-    { day: 'Monthly', time: '',         desc: 'EIA STEO (~5th\u201310th)' },
+    { daykey: 'day_wed',     time: '10:30 ET', desckey: 'ev_eiapetro' },
+    { daykey: 'day_thu',     time: '10:30 ET', desckey: 'ev_eiagas' },
+    { daykey: 'day_fri',     time: '13:00 ET', desckey: 'ev_bhrig' },
+    { daykey: 'day_fri',     time: '15:30 ET', desckey: 'ev_cot' },
+    { daykey: 'day_monthly', time: '',         desckey: 'ev_opec' },
+    { daykey: 'day_monthly', time: '',         desckey: 'ev_iea' },
+    { daykey: 'day_monthly', time: '',         desckey: 'ev_steo' },
   ],
-  checklist: [
-    'Check overnight Brent / WTI / TTF settlement',
-    'Review Asian session & LNG flows',
-    'Check weather models (GFS / ECMWF shift)',
-    'Note prompt spread direction (WTI & HH)',
-    'Read EIA STEO / OPEC MOMR if released today',
-    'Review CFTC COT positioning (if Friday data)',
-    'Check refinery outage / turnaround updates',
-    "Review yesterday's volume & open interest changes",
-  ],
+  checklist: ['cl_1','cl_2','cl_3','cl_4','cl_5','cl_6','cl_7','cl_8'],
 };
 
 // ══════════════════════════════════════════════
@@ -4917,7 +5050,7 @@ function renderSidebar() {
   modLabel.className = 'sidebar-section-label';
   modLabel.style.borderTop = 'none';
   modLabel.style.marginTop = '0';
-  modLabel.textContent = 'Modules';
+  modLabel.textContent = t('modules');
   list.appendChild(modLabel);
 
   MODULES.forEach((mod, i) => {
@@ -4928,7 +5061,7 @@ function renderSidebar() {
     item.innerHTML = `
       <span class="source-icon">&#9670;</span>
       <div class="module-info">
-        <div class="module-name">${mod.name}</div>
+        <div class="module-name">${t('m_' + mod.id) || mod.name}</div>
       </div>
     `;
     list.appendChild(item);
@@ -4937,7 +5070,7 @@ function renderSidebar() {
   // Sources divider
   const label = document.createElement('div');
   label.className = 'sidebar-section-label';
-  label.textContent = 'Sources';
+  label.textContent = t('sources');
   list.appendChild(label);
 
   SOURCES.forEach((src, i) => {
@@ -4948,7 +5081,7 @@ function renderSidebar() {
     item.innerHTML = `
       <span class="source-icon">${src.icon}</span>
       <div class="module-info">
-        <div class="module-name">${src.name}</div>
+        <div class="module-name">${t('s_' + src.id) || src.name}</div>
       </div>
     `;
     list.appendChild(item);
@@ -4957,7 +5090,7 @@ function renderSidebar() {
   // Dashboards divider
   const dashLabel = document.createElement('div');
   dashLabel.className = 'sidebar-section-label';
-  dashLabel.textContent = 'Dashboards';
+  dashLabel.textContent = t('dashboards');
   list.appendChild(dashLabel);
 
   DASHBOARDS.forEach((dash, i) => {
@@ -4968,7 +5101,7 @@ function renderSidebar() {
     item.innerHTML = `
       <span class="source-icon">${dash.icon}</span>
       <div class="module-info">
-        <div class="module-name">${dash.name}</div>
+        <div class="module-name">${t('morningTrading')}</div>
       </div>
     `;
     list.appendChild(item);
@@ -4983,9 +5116,12 @@ function render() {
   } else if (currentView === 'dashboard') {
     renderDashboard();
   } else {
-    const content = currentView === 'module'
+    let content = currentView === 'module'
       ? MODULES[currentModule].lesson
       : SOURCES[currentSource].content;
+    if (currentLang === 'zh' && I18N.zh.engOnlyNote) {
+      content = content.replace(/^(# [^\n]+\n)/, '$1\n' + I18N.zh.engOnlyNote);
+    }
     document.getElementById('lessonView').innerHTML = marked.parse(content);
 
     document.querySelectorAll('.content-area a.source-link').forEach(a => {
@@ -5006,18 +5142,18 @@ function renderHome() {
     <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;text-align:center;animation:fadeIn 0.3s ease;">
       <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/89.png" alt="Muk" style="width:120px;height:120px;image-rendering:smooth;filter:grayscale(1);margin-bottom:16px;">
       <h1 style="font-family:var(--font-display);font-size:2.4rem;font-weight:700;color:var(--text-primary);margin-bottom:8px;letter-spacing:0.06em;text-transform:lowercase;">muk</h1>
-      <p style="font-family:var(--font-mono);font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:40px;">energy trading</p>
+      <p style="font-family:var(--font-mono);font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:40px;">${t('energyTrading')}</p>
       <div style="background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:6px;padding:24px 32px;max-width:440px;">
-        <p style="font-family:var(--font-mono);font-size:0.65rem;color:var(--accent-amber);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;">Under Construction</p>
-        <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.6;margin-bottom:16px;">This page is being built. Get started with:</p>
+        <p style="font-family:var(--font-mono);font-size:0.65rem;color:var(--accent-amber);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;">${t('underConstruction')}</p>
+        <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.6;margin-bottom:16px;">${t('getStartedWith')}</p>
         <div style="display:flex;flex-direction:column;gap:8px;">
           <div onclick="currentView='module';currentModule=0;render();closeSidebar();" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:5px;cursor:pointer;transition:border-color 0.15s;" onmouseover="this.style.borderColor='var(--accent-amber)'" onmouseout="this.style.borderColor='var(--border-subtle)'">
             <span style="font-family:var(--font-mono);font-size:0.7rem;color:var(--accent-amber);">&#9670;</span>
-            <span style="font-size:0.85rem;color:var(--text-primary);">Foundations</span>
+            <span style="font-size:0.85rem;color:var(--text-primary);">${t('m_01')}</span>
           </div>
           <div onclick="currentView='source';currentSource=0;render();closeSidebar();" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:5px;cursor:pointer;transition:border-color 0.15s;" onmouseover="this.style.borderColor='var(--accent-amber)'" onmouseout="this.style.borderColor='var(--border-subtle)'">
             <span style="font-family:var(--font-mono);font-size:0.7rem;color:var(--accent-amber);">&#9670;</span>
-            <span style="font-size:0.85rem;color:var(--text-primary);">Oil 101</span>
+            <span style="font-size:0.85rem;color:var(--text-primary);">${t('s_oil101')}</span>
           </div>
         </div>
       </div>
@@ -5031,11 +5167,11 @@ function renderDashboard() {
 
   // Header
   h += '<div class="dashboard">';
-  h += '<h1>Morning Trading Dashboard</h1>';
-  h += '<div class="dash-subtitle">Enter prices below \u2014 spreads auto-calculate</div>';
+  h += `<h1>${t('morningDashTitle')}</h1>`;
+  h += `<div class="dash-subtitle">${t('morningDashSubtitle')}</div>`;
 
   // Panel 1: Prices
-  h += '<div class="dash-panel"><div class="dash-panel-title">Prices</div><div class="dash-grid">';
+  h += `<div class="dash-panel"><div class="dash-panel-title">${t('prices')}</div><div class="dash-grid">`;
   C.prices.forEach(f => {
     h += `<div class="dash-input-group">
       <label>${f.label} <span>${f.unit}</span></label>
@@ -5045,7 +5181,7 @@ function renderDashboard() {
   h += '</div></div>';
 
   // Panel 2: Spreads
-  h += '<div class="dash-panel"><div class="dash-panel-title">Computed Spreads</div>';
+  h += `<div class="dash-panel"><div class="dash-panel-title">${t('computedSpreads')}</div>`;
   C.spreads.forEach((s, i) => {
     h += `<div class="dash-spread-row">
       <span class="dash-spread-label">${s.label}</span>
@@ -5056,10 +5192,10 @@ function renderDashboard() {
   h += '</div>';
 
   // Panel 3: Inventories
-  h += '<div class="dash-panel"><div class="dash-panel-title">Inventories & Fundamentals</div>';
+  h += `<div class="dash-panel"><div class="dash-panel-title">${t('inventories')}</div>`;
   C.inventories.forEach(inv => {
     h += `<div class="dash-inv-row">
-      <label>${inv.label}</label>
+      <label>${t('inv_' + inv.key)}</label>
       <input type="number" step="${inv.step}" data-key="${inv.key}" placeholder="${inv.placeholder}">
       <span class="dash-unit">${inv.unit}</span>
       <span class="dash-indicator neutral" id="ii-${inv.key}">\u2014</span>
@@ -5068,26 +5204,26 @@ function renderDashboard() {
   h += '</div>';
 
   // Panel 4: Events
-  h += '<div class="dash-panel"><div class="dash-panel-title">Key Events</div>';
+  h += `<div class="dash-panel"><div class="dash-panel-title">${t('keyEvents')}</div>`;
   C.events.forEach(ev => {
     const timeStr = ev.time ? ev.time + ' \u2014 ' : '';
     h += `<div class="dash-event-row">
-      <span class="dash-event-day">${ev.day}</span>
-      <span class="dash-event-desc">${timeStr}${ev.desc}</span>
+      <span class="dash-event-day">${t(ev.daykey)}</span>
+      <span class="dash-event-desc">${timeStr}${t(ev.desckey)}</span>
     </div>`;
   });
   h += '</div>';
 
   // Panel 5: Checklist (full width)
-  h += '<div class="dash-panel" style="grid-column:1/-1"><div class="dash-panel-title">Morning Checklist</div><div class="dash-checklist">';
-  C.checklist.forEach((item, i) => {
+  h += `<div class="dash-panel" style="grid-column:1/-1"><div class="dash-panel-title">${t('morningChecklist')}</div><div class="dash-checklist">`;
+  C.checklist.forEach((clkey, i) => {
     const checked = dashboardState['_chk_' + i] ? ' checked' : '';
-    h += `<label><input type="checkbox" data-chk="${i}"${checked}><span>${item}</span></label>`;
+    h += `<label><input type="checkbox" data-chk="${i}"${checked}><span>${t(clkey)}</span></label>`;
   });
   h += '</div></div>';
 
   // Timestamp
-  h += '<div class="dash-timestamp" style="grid-column:1/-1">Last updated: <span id="dashTs">' +
+  h += `<div class="dash-timestamp" style="grid-column:1/-1">${t('lastUpdated')}: <span id="dashTs">` +
     (dashboardState._ts || '\u2014') + '</span></div>';
 
   h += '</div>';
@@ -5142,11 +5278,11 @@ function recalcDashboard() {
     valEl.textContent = (val >= 0 ? '+' : '') + val.toFixed(s.dp) + ' ' + s.unit;
 
     if (val < s.thresholds.bearishBelow) {
-      indEl.textContent = 'BEARISH'; indEl.className = 'dash-indicator bearish';
+      indEl.textContent = t('bearish'); indEl.className = 'dash-indicator bearish';
     } else if (val > s.thresholds.bullishAbove) {
-      indEl.textContent = 'BULLISH'; indEl.className = 'dash-indicator bullish';
+      indEl.textContent = t('bullish'); indEl.className = 'dash-indicator bullish';
     } else {
-      indEl.textContent = 'NEUTRAL'; indEl.className = 'dash-indicator neutral';
+      indEl.textContent = t('neutral'); indEl.className = 'dash-indicator neutral';
     }
   });
 
@@ -5159,11 +5295,11 @@ function recalcDashboard() {
       indEl.textContent = '\u2014'; indEl.className = 'dash-indicator neutral'; return;
     }
     if (inv.thresholds.bearishAbove !== undefined && val > inv.thresholds.bearishAbove) {
-      indEl.textContent = 'BEARISH'; indEl.className = 'dash-indicator bearish';
+      indEl.textContent = t('bearish'); indEl.className = 'dash-indicator bearish';
     } else if (inv.thresholds.bullishBelow !== undefined && val < inv.thresholds.bullishBelow) {
-      indEl.textContent = 'BULLISH'; indEl.className = 'dash-indicator bullish';
+      indEl.textContent = t('bullish'); indEl.className = 'dash-indicator bullish';
     } else {
-      indEl.textContent = 'NEUTRAL'; indEl.className = 'dash-indicator neutral';
+      indEl.textContent = t('neutral'); indEl.className = 'dash-indicator neutral';
     }
   });
 
@@ -5196,6 +5332,7 @@ function closeSidebar() {
 // INIT
 // ══════════════════════════════════════════════
 
+if (currentLang === 'zh') document.getElementById('langToggle').textContent = '\u4e2d';
 render();
 </script>
 </body>
