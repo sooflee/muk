@@ -412,7 +412,7 @@ body {
     color: var(--text-secondary);
     font-size: 1.1rem;
   }
-  .content-area { padding: 24px 16px 80px; }
+  .content-area { padding: 60px 16px 80px; }
 }
 
 .mobile-toggle {
@@ -421,6 +421,23 @@ body {
   top: 12px;
   left: 12px;
   z-index: 50;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 5px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+.mobile-toggle:hover { color: var(--accent-amber); border-color: var(--border-medium); }
+
+/* Desktop: show toggle only when sidebar is hidden */
+@media (min-width: 641px) {
+  .app.sidebar-hidden .sidebar { display: none; }
+  .app.sidebar-hidden .mobile-toggle { display: flex; }
 }
 
 /* ── SCROLLBAR GUTTER ── */
@@ -775,6 +792,7 @@ body {
           <span class="icon-dark">&#9789;</span>
           <span class="icon-light">&#9788;</span>
         </button>
+        <button class="theme-toggle" onclick="hideSidebar()" title="Hide sidebar" style="position:absolute;top:34px;right:0;font-family:var(--font-mono);font-size:0.8rem;line-height:1;">&#8249;</button>
         <button class="theme-toggle" onclick="toggleLang()" title="Toggle language" style="position:absolute;top:0;left:0;font-family:var(--font-mono);font-size:0.6rem;" id="langToggle">EN</button>
       </div>
     </div>
@@ -4909,6 +4927,7 @@ const I18N = {
     neutral: 'NEUTRAL',
     bullish: 'BULLISH',
     engOnlyNote: '',
+    prev: 'Previous', next: 'Next',
     // Module names
     m_01: 'Foundations', m_02: 'Crude Oil', m_03: 'Natural Gas',
     m_04: 'Refined Products', m_05: 'Power Markets', m_06: 'Trading Mechanics',
@@ -4965,6 +4984,7 @@ const I18N = {
     neutral: '\u4e2d\u6027',   // 中性
     bullish: '\u770b\u6da8',   // 看涨
     engOnlyNote: '',
+    prev: '\u4e0a\u4e00\u7ae0', next: '\u4e0b\u4e00\u7ae0',  // 上一章 / 下一章
     // Module names
     m_01: '\u57fa\u7840',              // 基础
     m_02: '\u539f\u6cb9',              // 原油
@@ -5444,8 +5464,14 @@ function saveDashState() {
 }
 
 function openSidebar() {
-  document.getElementById('sidebar').classList.add('open');
-  document.getElementById('mobileOverlay').classList.add('show');
+  // On desktop with hidden sidebar, show it; on mobile, slide it in
+  if (window.innerWidth > 640) {
+    document.querySelector('.app').classList.remove('sidebar-hidden');
+    try { localStorage.setItem('sidebarHidden', '0'); } catch(e) {}
+  } else {
+    document.getElementById('sidebar').classList.add('open');
+    document.getElementById('mobileOverlay').classList.add('show');
+  }
 }
 
 function closeSidebar() {
@@ -5453,11 +5479,22 @@ function closeSidebar() {
   document.getElementById('mobileOverlay').classList.remove('show');
 }
 
+function hideSidebar() {
+  // Desktop-only: collapse sidebar
+  document.querySelector('.app').classList.add('sidebar-hidden');
+  try { localStorage.setItem('sidebarHidden', '1'); } catch(e) {}
+}
+
 // ══════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════
 
 if (currentLang === 'zh') document.getElementById('langToggle').textContent = '\u4e2d';
+try {
+  if (localStorage.getItem('sidebarHidden') === '1') {
+    document.querySelector('.app').classList.add('sidebar-hidden');
+  }
+} catch(e) {}
 render();
 </script>
 </body>
