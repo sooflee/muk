@@ -447,6 +447,59 @@ body {
 [data-theme="light"] .theme-toggle .icon-dark { display: none; }
 [data-theme="light"] .theme-toggle .icon-light { display: inline; }
 
+/* ── GLOSSARY TOOLTIPS ── */
+.glossary {
+  border-bottom: 1px dotted var(--accent-amber);
+  cursor: help;
+  position: relative;
+  color: inherit;
+}
+.glossary:hover::after, .glossary:focus::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-deep);
+  border: 1px solid var(--border-medium);
+  color: var(--text-primary);
+  padding: 10px 14px;
+  border-radius: 5px;
+  font-size: 0.78rem;
+  font-weight: 400;
+  white-space: normal;
+  width: max-content;
+  max-width: 320px;
+  z-index: 1000;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  pointer-events: none;
+  text-align: left;
+}
+.glossary:hover::before, .glossary:focus::before {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--border-medium);
+  z-index: 1001;
+  pointer-events: none;
+}
+@media (max-width: 640px) {
+  .glossary:hover::after, .glossary:focus::after {
+    max-width: 240px;
+    left: 0;
+    transform: none;
+  }
+  .glossary:hover::before, .glossary:focus::before {
+    left: 12px;
+    transform: none;
+  }
+}
+
 /* ── DASHBOARD ── */
 .dashboard {
   display: grid;
@@ -4969,6 +5022,66 @@ function t(key) {
 // Loaded from translations.js when available
 const MODULES_ZH = (typeof MODULES_ZH_DATA !== 'undefined') ? MODULES_ZH_DATA : {};
 const SOURCES_ZH = (typeof SOURCES_ZH_DATA !== 'undefined') ? SOURCES_ZH_DATA : {};
+const GLOSSARY_MAP = (typeof GLOSSARY !== 'undefined') ? GLOSSARY : {};
+
+// Pre-build glossary regex (longest terms first to prefer longer matches)
+const _glossaryTerms = Object.keys(GLOSSARY_MAP).sort((a, b) => b.length - a.length);
+const _escapeRe = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const _glossaryPattern = _glossaryTerms.length > 0 ? new RegExp(
+  '(' + _glossaryTerms.map(t => {
+    const esc = _escapeRe(t);
+    const sb = /[A-Za-z0-9]/.test(t[0]) ? '\\b' : '';
+    const eb = /[A-Za-z0-9]/.test(t[t.length - 1]) ? '\\b' : '';
+    return sb + esc + eb;
+  }).join('|') + ')',
+  'g'
+) : null;
+
+function annotateGlossary(rootElement) {
+  if (!_glossaryPattern) return;
+
+  function walk(node) {
+    if (node.nodeType === 3) { // TEXT_NODE
+      const text = node.nodeValue;
+      _glossaryPattern.lastIndex = 0;
+      if (!_glossaryPattern.test(text)) return;
+      _glossaryPattern.lastIndex = 0;
+
+      const frag = document.createDocumentFragment();
+      let lastIdx = 0;
+      let match;
+      while ((match = _glossaryPattern.exec(text)) !== null) {
+        const term = match[0];
+        const def = GLOSSARY_MAP[term];
+        if (!def) continue;
+
+        if (match.index > lastIdx) {
+          frag.appendChild(document.createTextNode(text.substring(lastIdx, match.index)));
+        }
+        const span = document.createElement('span');
+        span.className = 'glossary';
+        span.setAttribute('tabindex', '0');
+        span.textContent = term;
+        span.setAttribute('data-tooltip', def[currentLang] || def.en);
+        frag.appendChild(span);
+        lastIdx = match.index + term.length;
+      }
+      if (lastIdx > 0) {
+        if (lastIdx < text.length) {
+          frag.appendChild(document.createTextNode(text.substring(lastIdx)));
+        }
+        node.parentNode.replaceChild(frag, node);
+      }
+    } else if (node.nodeType === 1) { // ELEMENT_NODE
+      const tag = node.tagName;
+      if (tag === 'CODE' || tag === 'PRE' || tag === 'A' || tag === 'SCRIPT' || tag === 'STYLE' || tag === 'SVG') return;
+      if (node.classList && node.classList.contains('glossary')) return;
+      const children = Array.from(node.childNodes);
+      children.forEach(walk);
+    }
+  }
+  walk(rootElement);
+}
 
 function toggleLang() {
   currentLang = currentLang === 'en' ? 'zh' : 'en';
@@ -5130,7 +5243,9 @@ function render() {
       const s = SOURCES[currentSource];
       content = (currentLang === 'zh' && SOURCES_ZH[s.id]) ? SOURCES_ZH[s.id] : s.content;
     }
-    document.getElementById('lessonView').innerHTML = marked.parse(content);
+    const lessonView = document.getElementById('lessonView');
+    lessonView.innerHTML = marked.parse(content);
+    annotateGlossary(lessonView);
 
     document.querySelectorAll('.content-area a.source-link').forEach(a => {
       a.addEventListener('click', (e) => {

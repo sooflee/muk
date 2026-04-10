@@ -2426,3 +2426,143 @@ SOURCES_ZH_DATA['otherlinks'] = `# 其他链接
 - 1 月 2M 桶汽油去库是正常的;7 月预期累积时相同的去库是非常看涨的
 - 总美国原油累积与**库欣去库**仍可能对 WTI 近月价差看涨
 - **API 报告**(周二下午 4:30 ET)是预览但不太可靠 —— 当 API 和 EIA 分歧时,EIA 数字是决定性的`;
+
+// ══════════════════════════════════════════════
+// GLOSSARY — hoverable tooltips for units, acronyms, and technical terms
+// ══════════════════════════════════════════════
+
+const GLOSSARY = {
+  // ── Units ──
+  'bbl': { en: 'Barrel — 42 US gallons (159 liters), the standard unit for crude oil and refined products', zh: '桶 —— 42 美制加仑(159 升),原油和成品油的标准单位' },
+  'MMBtu': { en: 'Million British Thermal Units — the standard pricing unit for US natural gas. 1 MMBtu ≈ 1,000 cubic feet of gas', zh: '百万英热单位 —— 美国天然气的标准定价单位。1 MMBtu ≈ 1,000 立方英尺天然气' },
+  'MWh': { en: 'Megawatt-hour — unit of electrical energy, equal to 1,000 kWh. The standard unit for wholesale electricity pricing', zh: '兆瓦时 —— 电能单位,等于 1,000 千瓦时。批发电力定价的标准单位' },
+  'GW': { en: 'Gigawatt — 1,000 megawatts. Used to measure generation capacity (e.g., PJM has ~185 GW of capacity)', zh: '吉瓦 —— 1,000 兆瓦。用于测量发电容量(例如 PJM 约有 185 GW 容量)' },
+  'TWh': { en: 'Terawatt-hour — 1,000 GWh. Used for annual electricity production statistics', zh: '太瓦时 —— 1,000 GWh。用于年度发电量统计' },
+  'Bcf': { en: 'Billion Cubic Feet — used for weekly gas storage changes and daily production. US produces ~105 Bcf/day', zh: '十亿立方英尺 —— 用于每周天然气库存变化和每日生产。美国每天生产约 105 Bcf' },
+  'Tcf': { en: 'Trillion Cubic Feet — used for annual gas consumption and total storage capacity. US storage capacity ~4.7 Tcf', zh: '万亿立方英尺 —— 用于年度天然气消费和总储存容量。美国储存容量约 4.7 Tcf' },
+  'Mcf': { en: 'Thousand Cubic Feet — volume measure for gas. 1 Mcf ≈ 1.037 MMBtu of energy', zh: '千立方英尺 —— 天然气的体积测量。1 Mcf ≈ 1.037 MMBtu 能量' },
+
+  // ── Benchmarks ──
+  'WTI': { en: 'West Texas Intermediate — US crude oil benchmark, 39.6° API light sweet, delivered physically at Cushing, Oklahoma', zh: '西德克萨斯中质原油 —— 美国原油基准,39.6° API 轻质低硫,在俄克拉荷马州库欣实物交割' },
+  'Brent': { en: 'North Sea crude oil benchmark based on the BFOET basket; ~80% of globally traded crude is priced off Brent', zh: '北海原油基准,基于 BFOET 一篮子;全球约 80% 的原油交易以布伦特定价' },
+  'Henry Hub': { en: 'Henry Hub, Louisiana — NYMEX natural gas futures delivery point; the US natural gas benchmark', zh: '路易斯安那州 Henry Hub —— NYMEX 天然气期货交割点;美国天然气基准' },
+  'Cushing': { en: 'Cushing, Oklahoma — WTI futures physical delivery point, ~90M barrels of storage capacity', zh: '俄克拉荷马州库欣 —— WTI 期货实物交割点,约 9000 万桶储存容量' },
+  'TTF': { en: 'Title Transfer Facility — Dutch virtual trading point, the European natural gas benchmark (replaces UK NBP)', zh: '荷兰标题转让设施 —— 荷兰虚拟交易点,欧洲天然气基准(取代英国 NBP)' },
+  'JKM': { en: 'Japan Korea Marker — Asian LNG spot price assessment published by Platts', zh: '日本韩国标记 —— Platts 发布的亚洲 LNG 现货价格评估' },
+  'NBP': { en: 'National Balancing Point — UK natural gas benchmark, largely superseded by TTF for European pricing', zh: '国家平衡点 —— 英国天然气基准,欧洲定价大部分被 TTF 取代' },
+  'BFOET': { en: 'Brent, Forties, Oseberg, Ekofisk, Troll — the five North Sea crude streams that constitute the Brent benchmark basket', zh: '布伦特、Forties、Oseberg、Ekofisk、Troll —— 构成布伦特基准一篮子的五种北海原油' },
+  'WCS': { en: 'Western Canadian Select — heavy sour Canadian crude benchmark (20.5° API, 3.47% sulfur)', zh: '西加拿大精选 —— 加拿大重质高硫原油基准(20.5° API,3.47% 硫)' },
+  'LLS': { en: 'Louisiana Light Sweet — US Gulf Coast light sweet crude benchmark (36.1° API)', zh: '路易斯安那轻质低硫 —— 美国墨西哥湾沿岸轻质低硫原油基准(36.1° API)' },
+
+  // ── Organizations ──
+  'OPEC': { en: 'Organization of the Petroleum Exporting Countries — 13 members including Saudi Arabia, Iraq, Iran, UAE; ~27M bbl/day combined', zh: '石油输出国组织 —— 13 个成员国,包括沙特阿拉伯、伊拉克、伊朗、阿联酋;合计约 2700 万桶/日' },
+  'OPEC+': { en: 'OPEC plus 10 allied producers including Russia, controlling ~40% of global crude production', zh: 'OPEC 加 10 个盟友生产国,包括俄罗斯,控制全球约 40% 的原油产量' },
+  'EIA': { en: 'US Energy Information Administration — publishes weekly/monthly US energy data and forecasts (free)', zh: '美国能源信息署 —— 发布每周/每月美国能源数据和预测(免费)' },
+  'IEA': { en: 'International Energy Agency — OECD-aligned, publishes the monthly Oil Market Report, the most respected independent S/D analysis', zh: '国际能源署 —— 与 OECD 一致,发布月度石油市场报告,最受尊敬的独立供需分析' },
+  'CFTC': { en: 'Commodity Futures Trading Commission — US regulator for commodity derivatives; publishes the COT report', zh: '商品期货交易委员会 —— 美国商品衍生品监管机构;发布 COT 报告' },
+
+  // ── Exchanges ──
+  'NYMEX': { en: 'New York Mercantile Exchange — part of CME Group, primary US exchange for energy futures (WTI, Henry Hub, RBOB, ULSD)', zh: '纽约商品交易所 —— CME 集团一部分,美国能源期货主要交易所(WTI、Henry Hub、RBOB、ULSD)' },
+  'ICE': { en: 'Intercontinental Exchange — global exchange, dominant venue for Brent, gasoil, TTF', zh: '洲际交易所 —— 全球交易所,布伦特、柴油、TTF 的主要交易场所' },
+  'CME': { en: 'Chicago Mercantile Exchange Group — parent of NYMEX; largest US derivatives exchange', zh: '芝加哥商业交易所集团 —— NYMEX 的母公司;美国最大的衍生品交易所' },
+  'DME': { en: 'Dubai Mercantile Exchange — Asian crude benchmark (Oman/Dubai futures)', zh: '迪拜商品交易所 —— 亚洲原油基准(阿曼/迪拜期货)' },
+
+  // ── Products & Fuels ──
+  'LNG': { en: 'Liquefied Natural Gas — natural gas cooled to -260°F for transport by specialized tanker', zh: '液化天然气 —— 冷却至 -260°F 以便用专业油轮运输的天然气' },
+  'NGL': { en: 'Natural Gas Liquids — ethane, propane, butane, isobutane, natural gasoline separated from raw gas', zh: '天然气液体 —— 从原气分离的乙烷、丙烷、丁烷、异丁烷、天然汽油' },
+  'ULSD': { en: 'Ultra-Low Sulfur Diesel — <15 ppm sulfur; the NYMEX heating oil / diesel futures contract (code HO)', zh: '超低硫柴油 —— <15 ppm 硫;NYMEX 取暖油/柴油期货合约(代码 HO)' },
+  'RBOB': { en: 'Reformulated Blendstock for Oxygenate Blending — the NYMEX gasoline futures contract (code RB), traded in $/gallon', zh: '重配合调油成分 —— NYMEX 汽油期货合约(代码 RB),以美元/加仑交易' },
+  'LPG': { en: 'Liquefied Petroleum Gas — propane and butane, used for heating, cooking, and petrochemical feedstock', zh: '液化石油气 —— 丙烷和丁烷,用于供暖、烹饪和石化原料' },
+  'VLSFO': { en: 'Very Low Sulfur Fuel Oil — 0.5% sulfur marine fuel oil, mandated by IMO 2020 regulations', zh: '超低硫燃料油 —— 0.5% 硫海洋燃料油,由 IMO 2020 法规规定' },
+  'HSFO': { en: 'High Sulfur Fuel Oil — 3.5% sulfur, used before IMO 2020 and still for scrubber-equipped vessels', zh: '高硫燃料油 —— 3.5% 硫,IMO 2020 之前使用,仍用于配备洗涤器的船只' },
+  'CARBOB': { en: 'California Reformulated Blendstock for Oxygenate Blending — stricter California gasoline specification (lower emissions)', zh: '加州重配合调油成分 —— 更严格的加州汽油规格(更低排放)' },
+
+  // ── Trading terms ──
+  'Contango': { en: 'Market state where futures prices are HIGHER than spot — indicates oversupply; storage economically attractive', zh: '期货价格高于现货的市场状态 —— 表明供应过剩;储存经济上有吸引力' },
+  'contango': { en: 'Market state where futures prices are HIGHER than spot — indicates oversupply; storage economically attractive', zh: '期货价格高于现货的市场状态 —— 表明供应过剩;储存经济上有吸引力' },
+  'Backwardation': { en: 'Market state where futures prices are LOWER than spot — indicates tight supply, strong near-term demand', zh: '期货价格低于现货的市场状态 —— 表明供应紧张,近期需求强劲' },
+  'backwardation': { en: 'Market state where futures prices are LOWER than spot — indicates tight supply, strong near-term demand', zh: '期货价格低于现货的市场状态 —— 表明供应紧张,近期需求强劲' },
+  'VaR': { en: 'Value at Risk — maximum expected loss at a given confidence level (e.g., 95%) over a given period (e.g., 1 day)', zh: '风险价值 —— 给定置信水平(例如 95%)和给定期间(例如 1 天)的最大预期损失' },
+  'CVaR': { en: 'Conditional VaR / Expected Shortfall — the average loss GIVEN that the loss exceeds the VaR threshold', zh: '条件 VaR / 预期损失 —— 在损失超过 VaR 阈值的条件下的平均损失' },
+  'Sharpe': { en: 'Sharpe Ratio — annualized return divided by annualized volatility; >1.0 is decent, >2.0 is strong', zh: 'Sharpe 比率 —— 年化回报除以年化波动率;>1.0 尚可,>2.0 强' },
+  'GARCH': { en: 'Generalized Autoregressive Conditional Heteroskedasticity — statistical model for time-varying volatility clustering', zh: '广义自回归条件异方差 —— 时变波动率聚集的统计模型' },
+  'OTC': { en: 'Over-The-Counter — bilateral trades outside exchanges; customizable but with counterparty risk', zh: '场外 —— 交易所外的双边交易;可定制但有对手方风险' },
+
+  // ── Power Markets ──
+  'LMP': { en: 'Locational Marginal Pricing — wholesale power price at a specific grid node = Energy + Congestion + Losses', zh: '位置边际定价 —— 特定电网节点的批发电力价格 = 能源 + 拥塞 + 损耗' },
+  'ISO': { en: 'Independent System Operator — nonprofit entity that manages an electricity grid and wholesale market', zh: '独立系统运营商 —— 管理电网和批发市场的非营利实体' },
+  'RTO': { en: 'Regional Transmission Organization — similar to ISO, manages regional transmission grid and markets', zh: '区域输电组织 —— 类似 ISO,管理区域输电网和市场' },
+  'PJM': { en: 'Largest US ISO/RTO, covering Mid-Atlantic, Midwest, Ohio Valley — ~185 GW capacity, 65M+ customers', zh: '美国最大的 ISO/RTO,覆盖中大西洋、中西部、俄亥俄河谷 —— 约 185 GW 容量,6500 万+ 客户' },
+  'ERCOT': { en: 'Electric Reliability Council of Texas — isolated Texas grid, energy-only market, extreme price volatility', zh: '德克萨斯电力可靠性委员会 —— 孤立的德克萨斯电网,纯能源市场,极端价格波动' },
+  'CAISO': { en: 'California Independent System Operator — high renewables penetration, famous for the "duck curve" net-load shape', zh: '加利福尼亚独立系统运营商 —— 高可再生能源渗透,以"鸭子曲线"净负荷形状闻名' },
+  'MISO': { en: 'Midcontinent Independent System Operator — covers upper Midwest and South; large wind penetration', zh: '中部大陆独立系统运营商 —— 覆盖上中西部和南部;大量风能渗透' },
+  'NYISO': { en: 'New York Independent System Operator — NYC (Zone J) trades at large premium due to transmission congestion', zh: '纽约独立系统运营商 —— 纽约市(Zone J)因输电拥塞以大溢价交易' },
+  'SPP': { en: 'Southwest Power Pool — Central US ISO (KS, OK, NE); very wind-heavy (~40% of energy from wind)', zh: '西南电力池 —— 美国中部 ISO(堪萨斯、俄克拉荷马、内布拉斯加);风能为主(约 40% 的能源来自风能)' },
+  'ISO-NE': { en: 'ISO New England — gas-dependent; winter gas supply constraints cause power price spikes', zh: 'ISO 新英格兰 —— 依赖天然气;冬季天然气供应限制导致电价飙升' },
+  'FTR': { en: 'Financial Transmission Rights — financial instrument paying the congestion price difference between two grid nodes', zh: '金融输电权 —— 支付两个电网节点之间拥塞价差的金融工具' },
+  'CCGT': { en: 'Combined Cycle Gas Turbine — most efficient gas power plant type, heat rate ~7 MMBtu/MWh; usually the marginal unit', zh: '联合循环燃气轮机 —— 最高效的天然气电厂类型,热耗率约 7 MMBtu/MWh;通常是边际单元' },
+  'RGGI': { en: 'Regional Greenhouse Gas Initiative — carbon cap-and-trade program covering Northeast US power sector', zh: '区域温室气体倡议 —— 涵盖美国东北部电力部门的碳限额与交易计划' },
+
+  // ── Refining ──
+  'FCC': { en: 'Fluid Catalytic Cracker — refinery unit that breaks heavy hydrocarbons into lighter gasoline and diesel components', zh: '流化催化裂化装置 —— 将重质碳氢化合物分解为较轻的汽油和柴油组分的炼厂装置' },
+  'PADD': { en: 'Petroleum Administration for Defense District — 5 US regions used for petroleum data reporting (PADD 1-5)', zh: '石油行政管理区 —— 美国 5 个用于石油数据报告的地区(PADD 1-5)' },
+  'RVP': { en: 'Reid Vapor Pressure — measure of gasoline volatility; lower in summer (7.8 psi) than winter (15 psi)', zh: '雷德蒸气压 —— 汽油挥发性测量;夏季(7.8 psi)低于冬季(15 psi)' },
+  'CARB': { en: 'California Air Resources Board — sets strict California fuel emissions standards', zh: '加州空气资源委员会 —— 制定严格的加州燃料排放标准' },
+
+  // ── Crude Quality ──
+  'API': { en: 'API Gravity — measure of crude oil density. Higher = lighter = more valuable (yields more gasoline/diesel). Water = 10° API', zh: 'API 重度 —— 原油密度测量。越高 = 越轻 = 越有价值(产出更多汽油/柴油)。水 = 10° API' },
+
+  // ── Weather & Demand ──
+  'HDD': { en: 'Heating Degree Days — sum of degrees below 65°F; measures cold weather for heating demand calculation', zh: '采暖度日 —— 低于 65°F 的度数总和;测量寒冷天气用于采暖需求计算' },
+  'CDD': { en: 'Cooling Degree Days — sum of degrees above 65°F; measures hot weather for cooling demand calculation', zh: '制冷度日 —— 高于 65°F 的度数总和;测量炎热天气用于制冷需求计算' },
+  'GFS': { en: 'Global Forecast System — US numerical weather prediction model, runs 4x daily (00Z/06Z/12Z/18Z), 15-day horizon', zh: '全球预报系统 —— 美国数值天气预报模型,每天运行 4 次(00Z/06Z/12Z/18Z),15 天预报' },
+  'ECMWF': { en: 'European Centre for Medium-Range Weather Forecasts — European weather model, historically most accurate', zh: '欧洲中期天气预报中心 —— 欧洲天气模型,历来最准确' },
+  'NWP': { en: 'Numerical Weather Prediction — computer-based atmospheric forecasting (e.g., GFS, ECMWF)', zh: '数值天气预报 —— 基于计算机的大气预报(例如 GFS、ECMWF)' },
+
+  // ── Reports ──
+  'STEO': { en: 'Short-Term Energy Outlook — EIA monthly report (~5th-10th) with US and global S/D forecasts', zh: '短期能源展望 —— EIA 月度报告(约 5-10 日),包含美国和全球供需预测' },
+  'WPSR': { en: 'Weekly Petroleum Status Report — EIA report published Wednesday 10:30 ET; the most market-moving energy report', zh: '每周石油状况报告 —— EIA 报告,每周三上午 10:30 ET 发布;最受市场关注的能源报告' },
+  'MOMR': { en: "Monthly Oil Market Report — OPEC's monthly publication with their supply/demand view and production data", zh: '月度石油市场报告 —— OPEC 的月度出版物,包含其供需观点和生产数据' },
+  'COT': { en: 'Commitments of Traders report — weekly CFTC report showing positions by trader category (commercial, non-commercial, managed money)', zh: '交易员持仓报告 —— 每周 CFTC 报告,按交易员类别显示持仓(商业、非商业、管理货币)' },
+
+  // ── Shale / Upstream ──
+  'DUC': { en: 'Drilled but Uncompleted — wells that have been drilled but not yet hydraulically fractured; represents latent supply', zh: '已钻未完井 —— 已钻但尚未水力压裂的井;代表潜在供应' },
+  'EUR': { en: 'Estimated Ultimate Recovery — total oil/gas expected to be produced from a well over its lifetime', zh: '最终可采储量 —— 井在其生命周期内预计生产的总油/气量' },
+  'EOR': { en: 'Enhanced Oil Recovery — tertiary techniques (CO2 injection, steam, chemical) to extract additional oil', zh: '强化采油 —— 三次采油技术(CO2 注入、蒸汽、化学)以提取额外的油' },
+  'E&P': { en: 'Exploration and Production — the upstream oil and gas business (finding and extracting)', zh: '勘探与生产 —— 上游油气业务(寻找和提取)' },
+  'NOC': { en: 'National Oil Company — state-owned oil company (Saudi Aramco, ADNOC, NIOC, Rosneft, Petrobras, etc.)', zh: '国家石油公司 —— 国有石油公司(沙特阿美、ADNOC、NIOC、俄罗斯石油、巴西国家石油等)' },
+
+  // ── Basins ──
+  'Permian': { en: 'Permian Basin — largest US oil-producing region (West Texas / SE New Mexico), ~6M bbl/day', zh: '二叠纪盆地 —— 最大的美国产油区(西德克萨斯/新墨西哥东南),约 600 万桶/日' },
+  'Marcellus': { en: 'Marcellus Shale — Appalachian natural gas basin spanning PA/WV/OH; one of the largest gas plays in the world', zh: 'Marcellus 页岩 —— 阿巴拉契亚天然气盆地,横跨宾夕法尼亚/西弗吉尼亚/俄亥俄;世界上最大的天然气区块之一' },
+  'Haynesville': { en: 'Haynesville Shale — Louisiana/East Texas gas basin; most price-sensitive US gas basin', zh: 'Haynesville 页岩 —— 路易斯安那/东德克萨斯天然气盆地;最具价格敏感性的美国天然气盆地' },
+  'Bakken': { en: 'Bakken Shale — North Dakota/Montana oil basin, ~1.1M bbl/day; logistics-constrained', zh: 'Bakken 页岩 —— 北达科他/蒙大拿石油盆地,约 110 万桶/日;物流受限' },
+  'Eagle Ford': { en: 'Eagle Ford Shale — South Texas oil/condensate basin, ~1.1M bbl/day', zh: 'Eagle Ford 页岩 —— 南德克萨斯石油/凝析油盆地,约 110 万桶/日' },
+  'Waha': { en: 'Waha Hub — West Texas natural gas pricing point; Permian associated gas delivery; often at deep discount to Henry Hub', zh: 'Waha 枢纽 —— 西德克萨斯天然气定价点;二叠纪伴生气交割;通常相对 Henry Hub 深度折扣' },
+
+  // ── Physical traders / Companies ──
+  'Aramco': { en: "Saudi Aramco — Saudi Arabia's national oil company, largest global producer (~10M bbl/day)", zh: '沙特阿美 —— 沙特阿拉伯国家石油公司,全球最大生产商(约 1000 万桶/日)' },
+  'Vitol': { en: 'Vitol Group — largest independent physical commodity trading house (~$500B annual revenue)', zh: 'Vitol 集团 —— 最大的独立实物商品贸易公司(年收入约 5000 亿美元)' },
+  'Trafigura': { en: 'Trafigura — second largest independent physical commodity trader', zh: 'Trafigura —— 第二大独立实物商品交易商' },
+  'Glencore': { en: 'Glencore — Swiss-based physical commodity trader and mining company', zh: 'Glencore —— 瑞士实物商品交易商和矿业公司' },
+  'Gunvor': { en: 'Gunvor — major independent physical oil trading house', zh: 'Gunvor —— 主要的独立实物石油贸易公司' },
+  'Mercuria': { en: 'Mercuria — Geneva-based physical commodity trading house', zh: 'Mercuria —— 总部位于日内瓦的实物商品贸易公司' },
+  'Amaranth': { en: 'Amaranth Advisors — hedge fund that lost $6.6B on concentrated natural gas calendar spreads in September 2006', zh: 'Amaranth 顾问公司 —— 2006 年 9 月在集中的天然气日历价差上损失 66 亿美元的对冲基金' },
+
+  // ── Tankers / Chokepoints ──
+  'VLCC': { en: 'Very Large Crude Carrier — oil tanker holding ~2 million barrels; typical Middle East to Asia shipments', zh: '超大型油轮 —— 载油约 200 万桶的油轮;典型的中东到亚洲运输' },
+  'Hormuz': { en: 'Strait of Hormuz — critical chokepoint for ~21M bbl/day of Middle East crude exports (largest in the world)', zh: '霍尔木兹海峡 —— 约 2100 万桶/日中东原油出口的关键咽喉要道(世界最大)' },
+  'Suez': { en: 'Suez Canal — Egyptian chokepoint for ~7-9M bbl/day; connects Mediterranean to Red Sea', zh: '苏伊士运河 —— 埃及咽喉要道,约 700-900 万桶/日;连接地中海和红海' },
+  'Malacca': { en: 'Strait of Malacca — critical Southeast Asian route for ~16M bbl/day to China, Japan, South Korea', zh: '马六甲海峡 —— 关键的东南亚路线,约 1600 万桶/日到中国、日本、韩国' },
+
+  // ── Macro ──
+  'GDP': { en: 'Gross Domestic Product — total economic output; drives oil demand especially diesel and jet fuel', zh: '国内生产总值 —— 总经济产出;驱动石油需求,特别是柴油和航空燃油' },
+  'PMI': { en: 'Purchasing Managers Index — leading indicator of manufacturing activity and diesel demand', zh: '采购经理人指数 —— 制造业活动和柴油需求的领先指标' },
+  'VMT': { en: 'Vehicle Miles Traveled — US driving activity data; proxy for gasoline demand', zh: '车辆行驶里程 —— 美国驾驶活动数据;汽油需求的代理' },
+
+  // ── Quant / Stats ──
+  'ADF': { en: 'Augmented Dickey-Fuller test — statistical test for stationarity (unit root) in time series', zh: '增强 Dickey-Fuller 检验 —— 时间序列平稳性(单位根)的统计检验' },
+  'STL': { en: 'Seasonal-Trend decomposition using LOESS — method to decompose time series into trend, seasonal, and residual components', zh: '使用 LOESS 的季节趋势分解 —— 将时间序列分解为趋势、季节和残差分量的方法' },
+  'EVT': { en: 'Extreme Value Theory — statistical framework for modeling tail events (fitting Pareto/Gumbel to tails)', zh: '极值理论 —— 建模尾部事件的统计框架(将 Pareto/Gumbel 拟合到尾部)' },
+  'MAPE': { en: 'Mean Absolute Percentage Error — standard accuracy metric for forecasting models', zh: '平均绝对百分比误差 —— 预测模型的标准准确性指标' },
+};
